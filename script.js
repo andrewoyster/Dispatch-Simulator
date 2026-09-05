@@ -11,6 +11,27 @@ for (let i = 0; i < numberOfDispatchTypes; i++) {
     });
 }
 
+// Get key press
+document.addEventListener("keypress", function (event) {
+  switch (event.key) {
+    case "m":
+      dispatchCall("Medical");
+      break;
+
+    case "f":
+      dispatchCall("Fire");
+      break;
+
+    case "v":
+      dispatchCall("MVC");
+      break;
+
+    case "c":
+      "Cardiac Arrest";
+      break;
+  }
+});
+
 function dispatchCall(dispatchType) {
   let dispatchMessage = document.querySelector(".dispatch-message");
 
