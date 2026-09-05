@@ -52,14 +52,21 @@ function dispatchCall(dispatchType) {
       const randomSex = Math.floor(Math.random() * patientSex.length);
       const generatedPatientSex = patientSex[randomSex];
 
+      //   Generate patient
+      const generatedPatient = new Patient(
+        randomMedicalComplaint,
+        randomPatientAge,
+        generatedPatientSex,
+      );
+
       // generate message
       dispatchMessage.innerHTML =
         "Medical Call Dispatched - " +
-        randomMedicalComplaint +
+        generatedPatient.complaint +
         " - Age: " +
-        randomPatientAge +
+        generatedPatient.age +
         " - " +
-        generatedPatientSex;
+        generatedPatient.sex;
       break;
     case "Fire":
       dispatchMessage.innerHTML = "Fire Assignment Dispatched";
@@ -92,3 +99,10 @@ const medicalComplaints = [
 
 // Patient Sex
 const patientSex = ["Male", "Female"];
+
+// Constructor for patient
+function Patient(complaint, age, sex) {
+  this.complaint = complaint;
+  this.age = age;
+  this.sex = sex;
+}
