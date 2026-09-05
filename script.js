@@ -27,7 +27,7 @@ document.addEventListener("keypress", function (event) {
       break;
 
     case "c":
-      "Cardiac Arrest";
+      dispatchCall("Cardiac Arrest");
       break;
   }
 });
@@ -37,7 +37,29 @@ function dispatchCall(dispatchType) {
 
   switch (dispatchType) {
     case "Medical":
-      dispatchMessage.innerHTML = "Medical Call Dispatched";
+      // Randomize the call type
+      const randomMedicalIndex = Math.floor(
+        Math.random() * medicalComplaints.length,
+      );
+
+      const randomMedicalComplaint = medicalComplaints[randomMedicalIndex];
+
+      //   generate random age
+      let randomPatientAge = Math.floor(Math.random() * 100) + 1;
+      console.log(randomPatientAge);
+
+      //   randomize patient sex
+      const randomSex = Math.floor(Math.random() * patientSex.length);
+      const generatedPatientSex = patientSex[randomSex];
+
+      // generate message
+      dispatchMessage.innerHTML =
+        "Medical Call Dispatched - " +
+        randomMedicalComplaint +
+        " - Age: " +
+        randomPatientAge +
+        " - " +
+        generatedPatientSex;
       break;
     case "Fire":
       dispatchMessage.innerHTML = "Fire Assignment Dispatched";
@@ -59,3 +81,14 @@ function dispatchCall(dispatchType) {
     alertScreen.classList.remove("screen-alert");
   }, 300);
 }
+
+// Create Medical Complaints
+const medicalComplaints = [
+  "Chest pain",
+  "Difficulty Breathing",
+  "Abdominal Pain",
+  "Altered Mental Status",
+];
+
+// Patient Sex
+const patientSex = ["Male", "Female"];
