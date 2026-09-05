@@ -45,12 +45,10 @@ function dispatchCall(dispatchType) {
       const randomMedicalComplaint = medicalComplaints[randomMedicalIndex];
 
       //   generate random age
-      let randomPatientAge = Math.floor(Math.random() * 100) + 1;
-      console.log(randomPatientAge);
+      let randomPatientAge = generateAge();
 
       //   randomize patient sex
-      const randomSex = Math.floor(Math.random() * patientSex.length);
-      const generatedPatientSex = patientSex[randomSex];
+      const generatedPatientSex = generateSex();
 
       //   Generate patient
       const generatedPatient = new Patient(
@@ -59,6 +57,9 @@ function dispatchCall(dispatchType) {
         generatedPatientSex,
       );
 
+      //   Generate Address
+
+      const generatedAddress = generateAddress();
       // generate message
       dispatchMessage.innerHTML =
         "Medical Call Dispatched - " +
@@ -66,7 +67,9 @@ function dispatchCall(dispatchType) {
         " - Age: " +
         generatedPatient.age +
         " - " +
-        generatedPatient.sex;
+        generatedPatient.sex +
+        " - Address: " +
+        generatedAddress;
       break;
     case "Fire":
       dispatchMessage.innerHTML = "Fire Assignment Dispatched";
@@ -106,3 +109,42 @@ function Patient(complaint, age, sex) {
   this.age = age;
   this.sex = sex;
 }
+
+// Addresses
+const streetNames = [
+  "Oak Street",
+  "Main Street",
+  "Maple Avenue",
+  "Washington Street",
+  "Valley Road",
+];
+
+// Generate Random Address
+function generateAddressNumber() {
+  let randomAddressNumber = Math.floor(Math.random() * 9999) + 1;
+  return randomAddressNumber;
+}
+function generateStreet() {
+  let randomStreet = Math.floor(Math.random() * streetNames.length);
+  return streetNames[randomStreet];
+}
+
+function generateAddress() {
+  let addressNumber = generateAddressNumber();
+  let streetName = generateStreet();
+  return addressNumber + " " + streetName;
+}
+
+// Generate Random Age
+function generateAge() {
+  let randomPatientAge = Math.floor(Math.random() * 100) + 1;
+  return randomPatientAge;
+}
+
+// Generate Random Sex
+function generateSex() {
+  const randomSex = Math.floor(Math.random() * patientSex.length);
+  return patientSex[randomSex];
+}
+
+console.log(generateAddress());
