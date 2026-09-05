@@ -33,6 +33,13 @@ body {
     border-radius: 10px;
 }
 
+
+.screen-alert {
+    background-color: #16351f;
+    color: #d7ffe0;
+    border-color: #7cff9b;
+}
+
 .dispatch-display {
     font-family: monospace;
     font-size: 1.3rem;
