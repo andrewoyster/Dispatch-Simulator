@@ -1,16 +1,30 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dispatch Sim.. Learning DOM</title>
-
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
+    <h1>Dispatch Simulator</h1>
 
-
+    <div class="console">
+        <div class="screen">
+            <div class="dispatch-display">
+                <p>System Status: ONLINE</p>
+                <p class="dispatch-message">WAITING FOR DISPATCH</p>
+            </div>
+        </div>
+        <div class="controls">
+            <button class="medical dispatch">Medical</button>
+            <button class="fire dispatch">Fire</button>
+            <button class="mvc dispatch">MVC</button>
+            <button class="arrest dispatch">Cardiac Arrest</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
