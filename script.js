@@ -79,7 +79,28 @@ function dispatchCall(dispatchType) {
         `;
       break;
     case "Fire":
-      dispatchMessage.innerHTML = "Fire Assignment Dispatched";
+      // randomize fire calls
+      const randomFireIndex = Math.floor(Math.random() * fireCallTypes.length);
+
+      const randomFireCall = fireCallTypes[randomFireIndex];
+
+      // Randomize Occupancy
+      const randomOccupancyIndex = Math.floor(
+        Math.random() * occupancyType.length,
+      );
+
+      const randomOccupancy = occupancyType[randomOccupancyIndex];
+
+      const fireAddress = generateAddress();
+
+      dispatchMessage.innerHTML = `
+      > Fire Assignment Dispatched
+      <br>
+      > Incident Type: ${randomFireCall}
+      <br>
+      > Address: ${fireAddress}
+      <br>
+      > Occupancy: ${randomOccupancy}`;
       break;
     case "MVC":
       // Generate random amount of patients
@@ -175,11 +196,12 @@ function dispatchCall(dispatchType) {
       // Generate arrest message
       dispatchMessage.innerHTML = `> Cardiac Arrest Assignment Dispatched 
       <br>
+      > Address: ${generatedArrestCall.address}
+      <br>
       > Age:  ${generatedArrestCall.patients[0].age}
       <br>
       > Sex: ${generatedArrestCall.patients[0].sex}
-      <br>
-      > Address: ${generatedArrestCall.address}
+      
       `;
       break;
     default:
@@ -201,6 +223,18 @@ const medicalComplaints = [
   "Abdominal Pain",
   "Altered Mental Status",
 ];
+
+// Create Fire Call Types
+const fireCallTypes = [
+  "Structure Fire",
+  "Vehicle Fire",
+  "Brush Fire",
+  "Automatic Fire Alarm",
+  "Smoke Investigation",
+];
+
+// Create Occuupancy Type
+const occupancyType = ["Residential", "Commercial", "Industrial"];
 
 // Patient Sex
 const patientSex = ["Male", "Female"];
