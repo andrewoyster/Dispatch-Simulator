@@ -81,6 +81,14 @@ function dispatchCall(dispatchType) {
     case "MVC":
       // Generate random amount of patients
       const numberOfPatients = Math.floor(Math.random() * 4) + 1;
+      // Generate random numnber of vehicles
+      const numberOfVehicles = Math.floor(Math.random() * 4) + 1;
+
+      // Entrapment values
+      const entrapment = Math.random() < 0.5;
+
+      // Create MVCDetails object
+      const generatedMVCDetails = new MVCDetails(numberOfVehicles, entrapment);
 
       // Generate MVC address
       const mvcAddress = generateAddress();
@@ -99,13 +107,52 @@ function dispatchCall(dispatchType) {
         mvcPatients.push(mvcPatient);
       }
 
-      // Geneate MVC Call
-      const generatedMVCCall = new Call("MVC", mvcAddress, mvcPatients);
-      console.log(generatedMVCCall);
+      // Generate MVC Call
+      const generatedMVCCall = new Call(
+        "MVC",
+        mvcAddress,
+        mvcPatients,
+        generatedMVCDetails,
+      );
+
+      // Change Patient or Patients / vehicle or vehicles
+      let patientLabel;
+
+      if (generatedMVCCall.patients.length === 1) {
+        patientLabel = "Patient";
+      } else {
+        patientLabel = "Patients";
+      }
+
+      let vehicleLabel;
+
+      if (generatedMVCCall.details.vehicles === 1) {
+        vehicleLabel = "Vehicle";
+      } else {
+        vehicleLabel = "Vehicles";
+      }
+
+      // Entrapment
+      let entrapmentMessage;
+
+      if (generatedMVCCall.details.entrapment) {
+        entrapmentMessage = "Possible Entrapment";
+      } else {
+        entrapmentMessage = "No Reported Entrapment";
+      }
+
       dispatchMessage.innerHTML =
         "MVC Assignment Dispatched - " +
         generatedMVCCall.patients.length +
-        " Patients - " +
+        " " +
+        patientLabel +
+        " - " +
+        generatedMVCCall.details.vehicles +
+        " " +
+        vehicleLabel +
+        " - " +
+        entrapmentMessage +
+        " - " +
         generatedMVCCall.address;
       break;
     case "Cardiac Arrest":
@@ -159,10 +206,11 @@ const medicalComplaints = [
 const patientSex = ["Male", "Female"];
 
 // Call Constructor
-function Call(type, address, patients) {
+function Call(type, address, patients, details) {
   this.type = type;
   this.address = address;
   this.patients = patients;
+  this.details = details;
 }
 
 // Constructor for patient
@@ -170,6 +218,12 @@ function Patient(complaint, age, sex) {
   this.complaint = complaint;
   this.age = age;
   this.sex = sex;
+}
+
+// Create MVC Constructor
+function MVCDetails(vehicles, entrapment) {
+  this.vehicles = vehicles;
+  this.entrapment = entrapment;
 }
 
 // Addresses
@@ -181,7 +235,7 @@ const streetNames = [
   "Valley Road",
 ];
 
-// Generate Random
+// Generate Random Address
 function generateAddressNumber() {
   let randomAddressNumber = Math.floor(Math.random() * 9999) + 1;
   return randomAddressNumber;
