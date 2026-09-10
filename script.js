@@ -61,19 +61,17 @@ function dispatchCall(dispatchType) {
       const generatedAddress = generateAddress();
 
       //   Generate Call
-      const generatedCall = new Call(
-        "Medical",
-        generatedAddress,
+      const generatedCall = new Call("Medical", generatedAddress, [
         generatedPatient,
-      );
+      ]);
       // generate message
       dispatchMessage.innerHTML =
         "Medical Call Dispatched - " +
-        generatedCall.patient.complaint +
+        generatedCall.patients[0].complaint +
         " - Age: " +
-        generatedCall.patient.age +
+        generatedCall.patients[0].age +
         " - " +
-        generatedCall.patient.sex +
+        generatedCall.patients[0].sex +
         " - Address: " +
         generatedCall.address;
       break;
@@ -82,8 +80,33 @@ function dispatchCall(dispatchType) {
       break;
     case "MVC":
       // Generate random amount of patients
-      const randMVCPatient = Math.floor(Math.random() * 4) + 1;
-      dispatchMessage.innerHTML = "MVC Assignment Dispatched";
+      const numberOfPatients = Math.floor(Math.random() * 4) + 1;
+
+      // Generate MVC address
+      const mvcAddress = generateAddress();
+
+      // Create patient array
+      const mvcPatients = [];
+
+      for (let i = 0; i < numberOfPatients; i++) {
+        const MVCPatientAge = generateAge();
+        const MVCPatientSex = generateSex();
+
+        // Create patient
+        const mvcPatient = new Patient("MVC", MVCPatientAge, MVCPatientSex);
+
+        // Push new patient into array
+        mvcPatients.push(mvcPatient);
+      }
+
+      // Geneate MVC Call
+      const generatedMVCCall = new Call("MVC", mvcAddress, mvcPatients);
+      console.log(generatedMVCCall);
+      dispatchMessage.innerHTML =
+        "MVC Assignment Dispatched - " +
+        generatedMVCCall.patients.length +
+        " Patients - " +
+        generatedMVCCall.address;
       break;
     case "Cardiac Arrest":
       // patient age and sex
@@ -99,18 +122,16 @@ function dispatchCall(dispatchType) {
 
       const arrestAddress = generateAddress();
       // Generate call
-      const generatedArrestCall = new Call(
-        "Cardiac Arrest",
-        arrestAddress,
+      const generatedArrestCall = new Call("Cardiac Arrest", arrestAddress, [
         arrestPatient,
-      );
+      ]);
       // Generate arrest message
       dispatchMessage.innerHTML =
         "Cardiac Arrest Assignment Dispatched - " +
         " - Age: " +
-        generatedArrestCall.patient.age +
+        generatedArrestCall.patients[0].age +
         " - " +
-        generatedArrestCall.patient.sex +
+        generatedArrestCall.patients[0].sex +
         " - Address: " +
         generatedArrestCall.address;
       break;
@@ -126,13 +147,6 @@ function dispatchCall(dispatchType) {
   }, 300);
 }
 
-// Call Constructor
-function Call(type, address, patient) {
-  this.type = type;
-  this.address = address;
-  this.patient = patient;
-}
-
 // Create Medical Complaints
 const medicalComplaints = [
   "Chest pain",
@@ -143,6 +157,13 @@ const medicalComplaints = [
 
 // Patient Sex
 const patientSex = ["Male", "Female"];
+
+// Call Constructor
+function Call(type, address, patients) {
+  this.type = type;
+  this.address = address;
+  this.patients = patients;
+}
 
 // Constructor for patient
 function Patient(complaint, age, sex) {
