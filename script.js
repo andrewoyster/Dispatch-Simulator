@@ -65,15 +65,18 @@ function dispatchCall(dispatchType) {
         generatedPatient,
       ]);
       // generate message
-      dispatchMessage.innerHTML =
-        "Medical Call Dispatched - " +
-        generatedCall.patients[0].complaint +
-        " - Age: " +
-        generatedCall.patients[0].age +
-        " - " +
-        generatedCall.patients[0].sex +
-        " - Address: " +
-        generatedCall.address;
+      dispatchMessage.innerHTML = `
+        > Medical Call Dispatched
+        <br>
+        > Address: ${generatedCall.address}
+        <br>
+        > Chief Complaint: ${generatedCall.patients[0].complaint}
+        <br>
+        > Age: ${generatedCall.patients[0].age}
+        <br>
+        > Sex: ${generatedCall.patients[0].sex}
+        <br>
+        `;
       break;
     case "Fire":
       dispatchMessage.innerHTML = "Fire Assignment Dispatched";
@@ -141,19 +144,16 @@ function dispatchCall(dispatchType) {
         entrapmentMessage = "No Reported Entrapment";
       }
 
-      dispatchMessage.innerHTML =
-        "MVC Assignment Dispatched - " +
-        generatedMVCCall.patients.length +
-        " " +
-        patientLabel +
-        " - " +
-        generatedMVCCall.details.vehicles +
-        " " +
-        vehicleLabel +
-        " - " +
-        entrapmentMessage +
-        " - " +
-        generatedMVCCall.address;
+      dispatchMessage.innerHTML = `
+        > MVC Assignment Dispatched
+        <br>
+        > Address: ${generatedMVCCall.address}
+        <br>
+        > Patients: ${generatedMVCCall.patients.length} ${patientLabel}
+        <br>
+        > Vehicles Involved: ${generatedMVCCall.details.vehicles} ${vehicleLabel}
+        <br>
+        > Entrapment: ${entrapmentMessage}`;
       break;
     case "Cardiac Arrest":
       // patient age and sex
@@ -173,14 +173,14 @@ function dispatchCall(dispatchType) {
         arrestPatient,
       ]);
       // Generate arrest message
-      dispatchMessage.innerHTML =
-        "Cardiac Arrest Assignment Dispatched - " +
-        " - Age: " +
-        generatedArrestCall.patients[0].age +
-        " - " +
-        generatedArrestCall.patients[0].sex +
-        " - Address: " +
-        generatedArrestCall.address;
+      dispatchMessage.innerHTML = `> Cardiac Arrest Assignment Dispatched 
+      <br>
+      > Age:  ${generatedArrestCall.patients[0].age}
+      <br>
+      > Sex: ${generatedArrestCall.patients[0].sex}
+      <br>
+      > Address: ${generatedArrestCall.address}
+      `;
       break;
     default:
       console.log("Unknown dispatch type: " + dispatchType);
