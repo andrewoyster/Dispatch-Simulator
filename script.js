@@ -58,27 +58,61 @@ function dispatchCall(dispatchType) {
       );
 
       //   Generate Address
-
       const generatedAddress = generateAddress();
+
+      //   Generate Call
+      const generatedCall = new Call(
+        "Medical",
+        generatedAddress,
+        generatedPatient,
+      );
       // generate message
       dispatchMessage.innerHTML =
         "Medical Call Dispatched - " +
-        generatedPatient.complaint +
+        generatedCall.patient.complaint +
         " - Age: " +
-        generatedPatient.age +
+        generatedCall.patient.age +
         " - " +
-        generatedPatient.sex +
+        generatedCall.patient.sex +
         " - Address: " +
-        generatedAddress;
+        generatedCall.address;
       break;
     case "Fire":
       dispatchMessage.innerHTML = "Fire Assignment Dispatched";
       break;
     case "MVC":
+      // Generate random amount of patients
+      const randMVCPatient = Math.floor(Math.random() * 4) + 1;
       dispatchMessage.innerHTML = "MVC Assignment Dispatched";
       break;
     case "Cardiac Arrest":
-      dispatchMessage.innerHTML = "Cardiac Arrest Assignment Dispatched";
+      // patient age and sex
+      const arrestPatientAge = generateAge();
+      const arrestPatientSex = generateSex();
+
+      // Create new patient
+      const arrestPatient = new Patient(
+        "Cardiac Arrest",
+        arrestPatientAge,
+        arrestPatientSex,
+      );
+
+      const arrestAddress = generateAddress();
+      // Generate call
+      const generatedArrestCall = new Call(
+        "Cardiac Arrest",
+        arrestAddress,
+        arrestPatient,
+      );
+      // Generate arrest message
+      dispatchMessage.innerHTML =
+        "Cardiac Arrest Assignment Dispatched - " +
+        " - Age: " +
+        generatedArrestCall.patient.age +
+        " - " +
+        generatedArrestCall.patient.sex +
+        " - Address: " +
+        generatedArrestCall.address;
       break;
     default:
       console.log("Unknown dispatch type: " + dispatchType);
@@ -90,6 +124,13 @@ function dispatchCall(dispatchType) {
   setTimeout(function () {
     alertScreen.classList.remove("screen-alert");
   }, 300);
+}
+
+// Call Constructor
+function Call(type, address, patient) {
+  this.type = type;
+  this.address = address;
+  this.patient = patient;
 }
 
 // Create Medical Complaints
@@ -119,7 +160,7 @@ const streetNames = [
   "Valley Road",
 ];
 
-// Generate Random Address
+// Generate Random
 function generateAddressNumber() {
   let randomAddressNumber = Math.floor(Math.random() * 9999) + 1;
   return randomAddressNumber;
