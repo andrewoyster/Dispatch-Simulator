@@ -1,3 +1,5 @@
+// Dispatch Simulator v1
+
 var numberOfDispatchTypes = document.querySelectorAll(".dispatch").length;
 
 console.log(numberOfDispatchTypes);
